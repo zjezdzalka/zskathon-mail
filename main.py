@@ -73,7 +73,7 @@ async def loop():
                 if (creds.discord_channel_webhook != None):
                     async with aiohttp.ClientSession() as session:
                         webhook = discord.Webhook.from_url(creds.discord_channel_webhook, session=session)
-                        await webhook.send(f"New email received <@{creds.discord_role_ping}> ({creds.email_user})", embed=embed)
+                        await webhook.send(f"New email received <@&{creds.discord_role_ping}> ({creds.email_user})", embed=embed)
 
                 if is_bot and creds.discord_channel_id != 0:
                     channel = bot.get_channel(creds.discord_channel_id)
@@ -82,9 +82,9 @@ async def loop():
                         channel = await bot.fetch_channel(creds.discord_channel_id)
 
                     if (creds.allow_replies):
-                        await channel.send(f"New email received <@{creds.discord_role_ping}> ({creds.email_user})", embed=embed, view=ReplyButton(email))
+                        await channel.send(f"New email received <@&{creds.discord_role_ping}> ({creds.email_user})", embed=embed, view=ReplyButton(email))
                     else:
-                        await channel.send(f"New email received <@{creds.discord_role_ping}> ({creds.email_user})", embed=embed)
+                        await channel.send(f"New email received <@&{creds.discord_role_ping}> ({creds.email_user})", embed=embed)
 
         except Exception as e:
             logger.error(str(e))
