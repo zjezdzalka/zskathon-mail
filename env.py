@@ -21,7 +21,7 @@ REGISTERED_EMAILS : list[RegisteredEmail] = []
 def probe_environment():
     global REGISTERED_EMAILS
 
-    if ("EMAIL_HOST" in os.environ):
+    if "EMAIL_HOST" in os.environ and "EMAIL_USER" in os.environ and "EMAIL_PASS" in os.environ:
         REGISTERED_EMAILS.append(RegisteredEmail(os.environ["EMAIL_HOST"], 
                                                  os.environ["EMAIL_USER"], 
                                                  os.environ["EMAIL_PASS"], 
@@ -30,8 +30,7 @@ def probe_environment():
                                                  os.getenv("SMTP_PORT"),
                                                  os.getenv("IMAP_PORT"),
                                                  os.getenv("ALLOW_REPLIES"),   
-                                                 os.getenv("PING_ROLE")))  
-    
+                                                 os.getenv("PING_ROLE")))
     idx = 1
     while os.getenv(f"EMAIL_HOST.{idx}") != None:
         REGISTERED_EMAILS.append(RegisteredEmail(os.environ[f"EMAIL_HOST.{idx}"], 
